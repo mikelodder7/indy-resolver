@@ -1,0 +1,49 @@
+[package]
+name = "libindyresolver"
+version = "0.1.0"
+authors = ["Michael Lodder <redmike7@gmail.com>"]
+license = "Apache-2.0"
+readme = "README.md"
+repository = "https://github.com/hyperledger/indy-resolver"
+documentation = "https://docs.rs/indy-resolver"
+homepage = "https://crates.io/crates/indy-resolver"
+edition = "2018"
+
+[lib]
+name = "indyresolver"
+path = "src/lib.rs"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[profile.release]
+lto = true
+
+[dependencies]
+ffi-support = "0.3.4"
+failure = "0.1.5"
+
+[package.metadata.deb]
+maintainer = "Hyperledger"
+license-file = ["../LICENSE", "0"]
+copyright = "2019, Hyperledger"
+depends = "$auto"
+extended-description = """\
+Rust written library for resolving ledger objects in indy"""
+section = "admin"
+revision = "1"
+priority = "optional"
+assets = [
+    ["target/release/libindyresolver.a", "usr/lib", "644"],
+    ["target/release/libindyresolver.so", "usr/lib", "644"],
+    ["include/indyresolver.h", "usr/include", "644"]
+]
+
+[package.metadata.rpm]
+maintainer = "Hyperledger"
+license-file = ["../LICENSE", "0"]
+copyright = "2019, Hyperledger"
+depends = "$auto"
+revision = "1"
+priority = "optional"
+extended-description = """\
+Rust written library for resolving ledger objects in indy
+"""
