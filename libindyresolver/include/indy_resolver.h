@@ -4,8 +4,10 @@
 #include <stdint.h>
 
 typedef enum {
-    SUCCESS = 0
-} indy_resolver_status_t;
+    SUCCESS = 0,
+    CONTEXT_CREATE_FAIL = 1,
+    INVALID_DID = 2.
+} indy_res_status_t;
 
 struct ByteBuffer {
     int64_t len;
@@ -13,7 +15,7 @@ struct ByteBuffer {
 };
 
 struct ExternError {
-    indy_resolver_status_t code;
+    indy_res_status_t code;
     char* message;
 };
 
@@ -21,9 +23,20 @@ struct ExternError {
 extern "C" {
 #endif
 }
-extern void indy_resolver_bytebuffer_free(struct ByteBuffer buffer);
+
+extern int32_t indy_res_txn_sign(const char* const in_txn,
+                                 const void* const signer_key,
+                                 const char* out_txn,
+                                 const struct ExternError* err);
+
+extern int32_t indy_res_txn_send(int32_t pool_handle,
+                                         const char* const txn,
+                                         const struct ExternError* err);
+
+extern void indy_res_bytebuffer_free(struct ByteBuffer buffer);
 
 //Put other header file includes here
+#include "indy_resolver_context.h"
 
 #ifdef __cplusplus
 }
