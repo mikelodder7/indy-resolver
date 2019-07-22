@@ -6,7 +6,7 @@
 typedef enum {
     SUCCESS = 0,
     CONTEXT_CREATE_FAIL = 1,
-    INVALID_DID = 2.
+    INVALID_DID = 2,
 } indy_res_status_t;
 
 struct ByteBuffer {
@@ -37,9 +37,9 @@ extern void indy_res_bytebuffer_free(struct ByteBuffer buffer);
 
 //Put other header file includes here
 #include "indy_resolver_context.h"
+#include "indy_resolver_did.h"
 
 #ifdef __cplusplus
-}
 #endif
 
 #endif
