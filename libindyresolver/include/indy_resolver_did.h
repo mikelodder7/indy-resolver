@@ -2,6 +2,14 @@
 #define __indy__resolver__did__included__
 
 
+struct NymHandle {
+    int32_t poolHandle;
+    char* nym;
+    char* verKey;
+    struct ByteBuffer* secretKey;
+};
+
+
 /*
  * Creates a DID on the indy ledger
  *

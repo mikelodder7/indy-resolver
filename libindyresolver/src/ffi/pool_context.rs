@@ -1,39 +1,15 @@
+use super::*;
 use ffi_support::{FfiStr, ExternError};
-
-use std::os::raw::{c_char, c_void};
-
-pub type Handle = i32;
-pub type OutString = *const c_char;
-
-define_bytebuffer_destructor!(indy_res_free_bytebuffer);
-define_string_destructor!(indy_res_free_string);
-
-macro_rules! byte_array_to_rust {
-    ($ptr:ident, $len:expr) => {
-        if $ptr.is_null() || $len == 0 {
-            Vec::new()
-        } else {
-            unsafe { std::slice::from_raw_parts($ptr, $len as usize).to_vec() }
-        }
-    };
-}
-
-macro_rules! assign_out_string {
-    ($input:expr, $string:expr) => {
-        *$input = ffi_support::rust_string_to_c($string);
-    }
-}
 
 #[no_mangle]
 pub extern fn indy_res_context_create(pool_handle: Handle,
                                       submitter_did: FfiStr<'_>,
-                                      submitter_did_private_key: *const u8,
-                                      submitter_did_private_key_length: usize,
+                                      submitter_did_private_key: &ByteArray,
                                       context_json: FfiStr<'_>,
                                       context_did: &mut OutString,
                                       err: &mut ExternError) -> i32 {
     let submitter_did = submitter_did.as_str();
-    let submitter_did_private_key = byte_array_to_rust!(submitter_did_private_key, submitter_did_private_key_length);
+    let submitter_did_buffer = submitter_did_private_key.to_vec();
     let context_json = context_json.as_str();
     *err = ExternError::success();
 
@@ -42,7 +18,11 @@ pub extern fn indy_res_context_create(pool_handle: Handle,
     let s = r#"{"id":"did:sov1qazxsw2wsdxcde34erfgvbg"}"#;
 
     assign_out_string!(context_did, s);
-    !err.get_code().code()
+    if err.get_code().code() > 0 {
+        0
+    } else {
+        1
+    }
 }
 
 

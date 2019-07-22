@@ -32,11 +32,12 @@ extern int32_t indy_res_txn_send(int32_t pool_handle,
                                          const char* const txn,
                                          const struct ExternError* err);
 
-extern void indy_res_bytebuffer_free(struct ByteBuffer buffer);
+extern void indy_res_free_bytebuffer(struct ByteBuffer* buffer);
 extern void indy_res_free_string(char* input);
 
 //Put other header file includes here
 #include "indy_resolver_context.h"
+#include "indy_resolver_did.h"
 
 #ifdef __cplusplus
 }

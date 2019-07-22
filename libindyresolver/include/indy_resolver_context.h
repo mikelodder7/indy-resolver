@@ -30,10 +30,9 @@
 */
 extern int32_t indy_res_context_create(int32_t pool_handle,
                                        const char* const submitter_did,
-                                       const char* const submitter_did_private_key,
-                                       int32_t submitter_did_private_key_length,
+                                       const struct ByteBuffer* submitter_did_private_key,
                                        const char* const context_json,
-                                       const char* context_did,
+                                       char** context_did,
                                        const struct ExternError* err);
 
 /**
