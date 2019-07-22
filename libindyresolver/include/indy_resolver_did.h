@@ -12,6 +12,7 @@
  * #param `document` - .
  * #return `txn_rsp` - a pointer that will be filled with the txn response.
  * #return `err` - The result of the call. Will contain an error messages that occur
+ * 
  */
 extern int32_t indy_res_nym_create(int32_t pool_handle,
                                         const char* const nym,
