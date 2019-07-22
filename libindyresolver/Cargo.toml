@@ -34,7 +34,7 @@ priority = "optional"
 assets = [
     ["target/release/libindyresolver.a", "usr/lib", "644"],
     ["target/release/libindyresolver.so", "usr/lib", "644"],
-    ["include/indyresolver.h", "usr/include", "644"]
+    ["include/indy_resolver.h", "usr/include", "644"]
 ]
 
 [package.metadata.rpm]
