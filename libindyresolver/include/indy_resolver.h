@@ -40,7 +40,6 @@ extern void indy_res_free_string(char* input);
 #include "indy_resolver_did.h"
 
 #ifdef __cplusplus
-}
 #endif
 
 #endif
